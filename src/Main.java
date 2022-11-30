@@ -29,9 +29,23 @@ public class Main {
             n1.addNeighbor(n2);
             n2.addNeighbor(n1);
         }
+
+        System.out.println("Node neighbors: ");
         for(Node n: nodes) {
             n.printNeighbors();
         }
+
+        System.out.println();
+        System.out.println("Depth-First Search: ");
+        depthFirst(starter);
+
+        for(Node n : nodes) {
+            n.visited = false;
+        }
+
+        System.out.println();
+        System.out.println("Breath-First Search: ");
+        breathFirst(starter);
     }
 
     private static Node findNodeByName(String name) {
@@ -42,4 +56,33 @@ public class Main {
         }
         return null;
     }
+
+    private static void depthFirst(Node n) {
+        n.visited = true;
+        System.out.print(n.name + " ");
+        for(Node neighborNode : n.neighbors) {
+            if(!neighborNode.visited) {
+                depthFirst(neighborNode);
+            }
+        }
+    }
+
+    private static void breathFirst(Node n) {
+        List<Node> breadthFirstNodes = new ArrayList<>();
+        n.visited = true;
+        System.out.print(n.name + " ");
+        breadthFirstNodes.add(n);
+        while(breadthFirstNodes.size() != 0) {
+            for(Node neighborNode : breadthFirstNodes.get(0).neighbors) {
+                if(!neighborNode.visited) {
+                    neighborNode.visited = true;
+                    System.out.print(neighborNode.name + " ");
+                    breadthFirstNodes.add(neighborNode);
+                }
+            }
+            breadthFirstNodes.remove(0);
+        }
+    }
+
+
 }

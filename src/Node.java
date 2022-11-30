@@ -1,15 +1,16 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Node implements Comparable<Node>{
     public String name;
-    private List<Node> neighbors;
+    public List<Node> neighbors;
+    public boolean visited;
 
     public Node(String n) {
         name = n;
         neighbors = new ArrayList<>();
+        visited = false;
     }
 
     public void addNeighbor(Node other) {
